@@ -1,0 +1,1 @@
+The hardware requirements and environment configurations needed to run the scripts in **Functional testing** and **Performance testing** are described in the README files within the corresponding directories.
