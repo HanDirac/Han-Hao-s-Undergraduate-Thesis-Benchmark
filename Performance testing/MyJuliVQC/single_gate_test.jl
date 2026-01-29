@@ -1,10 +1,9 @@
 using JSON, Base.Threads
 using BenchmarkTools
-using QuantumCircuits, JuliVQC
-import MPSSimulator.fuse_gates
+using MyJuliVQC
 using DataFrames
 using CSV
-mark = "JuliVQC"
+mark = "MyJuliVQC"
 
 const single_gate_nqubits = 10:30
 const benchmarks = Dict()
@@ -77,8 +76,8 @@ end
 
 
 
-if !ispath("./.benchmarks/JuliVQC")
-    mkpath("./.benchmarks/JuliVQC")
+if !ispath("./.benchmarks/MyJuliVQC")
+    mkpath("./.benchmarks/MyJuliVQC")
 end
 
-write("./.benchmarks/JuliVQC/single_gate_test.json", JSON.json(benchmarks,4))
+write("./.benchmarks/MyJuliVQC/single_gate_test.json", JSON.json(benchmarks,4))
