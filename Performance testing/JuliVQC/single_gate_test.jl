@@ -55,7 +55,8 @@ end
 
 @task "H" nqubits=single_gate_nqubits begin
     map(single_gate_nqubits) do k
-        t = @benchmark apply!($(build_circuit_H(k)), $(StateVector(ComplexF32, k)))
+        circuit = build_circuit_H(k)
+        t = @benchmark apply!($circuit, state) setup=(state = StateVector(ComplexF32, $k))
         data = (mean(t).time/1e9, std(t).time/1e9, minimum(t).time/1e9, maximum(t).time/1e9)
 
     end
@@ -63,15 +64,17 @@ end
 
 @task "RX" nqubits=single_gate_nqubits begin
     map(single_gate_nqubits) do k
-        t = @benchmark apply!($(build_circuit_RX(k)), $(StateVector(ComplexF32, k)))
-        data = mean(t).time/1e9, std(t).time/1e9, minimum(t).time/1e9, maximum(t).time/1e9
+        circuit = build_circuit_RX(k)
+        t = @benchmark apply!($circuit, state) setup=(state = StateVector(ComplexF32, $k))
+        data = (mean(t).time/1e9, std(t).time/1e9, minimum(t).time/1e9, maximum(t).time/1e9)
     end
 end
 
 @task "CNOT" nqubits=single_gate_nqubits begin
     map(single_gate_nqubits) do k
-        t = @benchmark apply!($(build_circuit_CNOT(k)), $(StateVector(ComplexF32, k)))
-        data = mean(t).time/1e9, std(t).time/1e9, minimum(t).time/1e9, maximum(t).time/1e9
+        circuit = build_circuit_CNOT(k)
+        t = @benchmark apply!($circuit, state) setup=(state = StateVector(ComplexF32, $k))
+        data = (mean(t).time/1e9, std(t).time/1e9, minimum(t).time/1e9, maximum(t).time/1e9)
     end
 end
 

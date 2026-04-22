@@ -9,18 +9,18 @@ set(groot,'defaultAxesTickLabelInterpreter','latex');
 thisFile = mfilename('fullpath');
 [thisDir, ~, ~] = fileparts(thisFile);
 
-file_juli = fullfile(thisDir, 'grad_desc_log_notmy.txt'); % JuliVQC
+file_pennylane = fullfile(thisDir, 'grad_desc_log_pennylane.txt'); % Pennylane
 file_my   = fullfile(thisDir, 'grad_desc_log.txt');       % MyJuliVQC
 
 %% Read and parse logs
-[x_JuliVQC, y_JuliVQC] = read_loss_log(file_juli);
+[x_Pennylane, y_Pennylane] = read_loss_log(file_pennylane);
 [x_MyJuliVQC, y_MyJuliVQC] = read_loss_log(file_my);
 %% Keep only the first N points
 Nkeep = 1000;
 
-nJ = min(Nkeep, numel(x_JuliVQC));
-x_JuliVQC = x_JuliVQC(1:nJ);
-y_JuliVQC = y_JuliVQC(1:nJ);
+nJ = min(Nkeep, numel(x_Pennylane));
+x_Pennylane = x_Pennylane(1:nJ);
+y_Pennylane = y_Pennylane(1:nJ);
 
 nM = min(Nkeep, numel(x_MyJuliVQC));
 x_MyJuliVQC = x_MyJuliVQC(1:nM);
@@ -29,9 +29,9 @@ y_MyJuliVQC = y_MyJuliVQC(1:nM);
 
 
 %% Common part for difference
-Ncommon = min(numel(x_JuliVQC), numel(x_MyJuliVQC));
-x_diff  = x_JuliVQC(1:Ncommon);
-y_diff  = y_JuliVQC(1:Ncommon) - y_MyJuliVQC(1:Ncommon);
+Ncommon = min(numel(x_Pennylane), numel(x_MyJuliVQC));
+x_diff  = x_Pennylane(1:Ncommon);
+y_diff  = y_Pennylane(1:Ncommon) - y_MyJuliVQC(1:Ncommon);
 
 %% -------- Plot styling (paper-friendly) --------
 fs_label = 13;   % axis labels
@@ -41,8 +41,8 @@ ms       = 3.0;  % marker size (sparse)
 markStep = max(1, floor(Nkeep/50));  % show ~50 markers at most
 
 % To compare (a) and (b) fairly, unify y-limits:
-ymin_ab = min([y_JuliVQC(:); y_MyJuliVQC(:)]);
-ymax_ab = max([y_JuliVQC(:); y_MyJuliVQC(:)]);
+ymin_ab = min([y_Pennylane(:); y_MyJuliVQC(:)]);
+ymax_ab = max([y_Pennylane(:); y_MyJuliVQC(:)]);
 ypad    = 0.03 * (ymax_ab - ymin_ab + eps);
 yl_ab   = [ymin_ab-ypad, ymax_ab+ypad];
 
@@ -50,15 +50,15 @@ yl_ab   = [ymin_ab-ypad, ymax_ab+ypad];
 fig = figure('Units','centimeters','Position',[2 2 18 6.2]); % width x height
 tlo = tiledlayout(fig, 1, 3, 'TileSpacing','compact', 'Padding','compact');
 
-% ---------- (a) JuliVQC ----------
+% ---------- (a) Pennylane ----------
 ax1 = nexttile(tlo, 1);
 hold(ax1,'on');
 
-plot(ax1, x_JuliVQC, y_JuliVQC, '-', ...
+plot(ax1, x_Pennylane, y_Pennylane, '-', ...
     'LineWidth', lw, ...
     'Color', 'r');
 
-plot(ax1, x_JuliVQC(1:markStep:end), y_JuliVQC(1:markStep:end), 'o', ...
+plot(ax1, x_Pennylane(1:markStep:end), y_Pennylane(1:markStep:end), 'o', ...
     'MarkerSize', ms, ...
     'MarkerEdgeColor', 'r', ...
     'MarkerFaceColor', 'r');

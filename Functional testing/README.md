@@ -1,13 +1,21 @@
 ## Environment Requirements
 
-Scripts in both the `JuliVQC` and `MyJuliVQC` directories require **Julia version 1.10 or later**.
+#
+Scripts in the **MyJuliVQC** folder require **Julia version 1.10 or later**.
+The installation instructions for it can be found at:
 
-To avoid potential conflicts caused by functions with identical names in different Julia packages, the scripts in these two directories **must be run in separate Julia environments**:
+- MyJuliVQC: https://github.com/HanDirac/MyJuliVQC.jl 
 
-- When running scripts in the `JuliVQC` directory, you should first create a Julia virtual environment and install **only** the `JuliVQC` package in that environment, then execute the scripts within it.
-- When running scripts in the `MyJuliVQC` directory, you should first create a Julia virtual environment and install **only** the `MyJuliVQC` package in that environment, then execute the scripts within it.
 
-The installation instructions for these two packages can be found at:
+#
+To run the scripts in the **PennyLane** folder, it is recommended to first create a **Python virtual environment using conda with Python 3.10**. After activating the environment, execute the following commands inside this virtual environment:
+```
+set PYTHONNOUSERSITE=1
+pip install "numpy<2" pennylane
+pip install matplotlib jupyter ipykernel
+python -m ipykernel install --user --name pennylane_clean --display-name "Python (pennylane_clean)"
+```
+Then run the scripts inside this virtual environment.
 
-- JuliVQC: https://github.com/weiyouLiao/JuliVQC.jl  
-- MyJuliVQC: https://github.com/HanDirac/MyJuliVQC.jl
+
+
