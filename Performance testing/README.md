@@ -34,7 +34,7 @@ using Pkg
 Pkg.generate("MyJuliVQC_env")
 Pkg.activate("MyJuliVQC_env")
 ```
-Next, press the backspace key to exit the Pkg REPL mode, and then execute the following commands:
+Next, press ] to enter the Pkg REPL mode, and execute the following commands:commands:
 ```julia
 add https://github.com/HanDirac/MyJuliVQC.jl
 ```
